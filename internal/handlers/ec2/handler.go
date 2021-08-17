@@ -29,8 +29,6 @@ func Index(c *gin.Context) {
 		os.Exit(1)
 	}
 
-	fmt.Println(output)
-
 	//for _, v := range output.Reservations {
 	//	for _, i := range v.Instances {
 	//		for _ , t := range i.Tags {
