@@ -6,7 +6,7 @@ import (
 	"github.com/goccy/go-yaml"
 	"github.com/hachi-n/cloudbrowser/internal/envs"
 	"github.com/hachi-n/cloudbrowser/internal/logger"
-	//_ "github.com/hachi-n/cloudbrowser/pack"
+	_ "github.com/hachi-n/cloudbrowser/pack/configs"
 	"github.com/rakyll/statik/fs"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -46,7 +46,7 @@ func (c *AwsConfig) Validate() error {
 }
 
 const (
-	AWS_CONFIG_PATH = "/configs/aws.yaml"
+	AWS_CONFIG_PATH = "/aws.yaml"
 )
 
 const (

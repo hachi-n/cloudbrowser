@@ -35,8 +35,5 @@ namespace :assets do
       statik -f -dest #{PACK_DIR} -p #{File.basename(CONFIG_DIR)} -src #{CONFIG_DIR} -include=*.yaml
       statik -f -dest #{PACK_DIR} -p #{File.basename(ASSETS_DIR)} -src #{ASSETS_DIR}
     SHELL
-    # sh <<-SHELL
-    #   pkger -o #{File.basename(PACK_DIR)}
-    # SHELL
   end
 end
