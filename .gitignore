@@ -1,0 +1,9 @@
+# IntelliJ
+.idea
+
+# cloudbrowser
+/data
+/configs/aws.yaml
+
+## statik
+/pack

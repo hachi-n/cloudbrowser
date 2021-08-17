@@ -1,0 +1,11 @@
+development:
+  host: "aaaaaaaaaa"
+  port: "bbbbbbbbbb"
+
+staging:
+  host: "aaaaaaaaaa"
+  port: "bbbbbbbbbb"
+
+production:
+  host: "aaaaaaaaaa"
+  port: "bbbbbbbbbb"

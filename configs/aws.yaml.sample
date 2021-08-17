@@ -1,0 +1,14 @@
+development:
+  access_key: "aaaaaaaaaa"
+  secret_key: "bbbbbbbbbb"
+  region: "ap-northeast-1"
+
+staging:
+  access_key: "cccccccccc"
+  secret_key: "dddddddddd"
+  region: "ap-northeast-1"
+
+production:
+  access_key: "eeeeeeeeee"
+  secret_key: "ffffffffff"
+  region: "ap-northeast-1"
