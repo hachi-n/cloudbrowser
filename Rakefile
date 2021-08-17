@@ -37,3 +37,12 @@ namespace :assets do
     SHELL
   end
 end
+
+namespace :install do
+  desc "install dependencies"
+  task :tools do
+    sh <<-SHELL
+      go get github.com/rakyll/statik
+    SHELL
+  end
+end
