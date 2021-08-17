@@ -4,6 +4,7 @@
 # cloudbrowser
 /data
 /configs/aws.yaml
+/build
 
 ## statik
 /pack

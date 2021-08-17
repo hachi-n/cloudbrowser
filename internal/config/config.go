@@ -6,7 +6,7 @@ import (
 	"github.com/goccy/go-yaml"
 	"github.com/hachi-n/cloudbrowser/internal/envs"
 	"github.com/hachi-n/cloudbrowser/internal/logger"
-	_ "github.com/hachi-n/cloudbrowser/pack"
+	//_ "github.com/hachi-n/cloudbrowser/pack"
 	"github.com/rakyll/statik/fs"
 	"go.uber.org/zap/zapcore"
 	"os"

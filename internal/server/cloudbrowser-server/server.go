@@ -2,88 +2,68 @@ package cloudbrowser_server
 
 import (
 	"fmt"
-	_ "github.com/hachi-n/cloudbrowser/pack"
-	"github.com/markbates/pkger"
+	"github.com/gin-gonic/gin"
+	"github.com/hachi-n/cloudbrowser/internal/handlers/ec2"
+	"github.com/hachi-n/cloudbrowser/internal/server/internal/middleware"
+	_ "github.com/hachi-n/cloudbrowser/pack/assets"
+	"github.com/rakyll/statik/fs"
+	"html/template"
+	"io"
 	"os"
+	"strings"
 )
 
 func StartDaemon() error {
-	initTemplate()
-	//engine := gin.Default()
-	//engine.Use(middleware.ServerLogFormat)
-	////engine.Static("/assets", "./assets")
-	//engine.LoadHTMLGlob("assets/html/ec2/*.html")
-	//engine.LoadHTMLFiles()
-	//
-	//engine.SetHTMLTemplate()
-	//
-	//engine.GET("/ec2", ec2.Index)
-	//engine.Run(":3000")
-	//
+	engine := gin.Default()
+	engine.Use(middleware.ServerLogFormat)
+	//engine.Static("/assets", "./assets")
+
+	initTemplate(engine)
+
+	engine.GET("/ec2", ec2.Index)
+	engine.Run(":3000")
+
 	return nil
 }
 
-func initTemplate() {
+func initTemplate(engine *gin.Engine) {
+	statikFS, err := fs.New()
+	if err != nil {
+		fmt.Print(err)
+		os.Exit(1)
+	}
 
-	//	statikFS, err := fs.New()
-	//	if err != nil {
-	//		panic(err)
-	//	}
-	//
 	fn := func(path string, f os.FileInfo, err error) error {
-		fmt.Println(path)
+		if f.IsDir() {
+			return nil
+		}
 
-		//if f.IsDir() != true && strings.HasSuffix(f.Name(), ".html") {
-		//	var err error
-		//	tmpl, err = tmpl.Parse()
-		//	if err != nil {
-		//		return err
-		//	}
-		//}
-		//return nil
+		if strings.HasSuffix(f.Name(), ".html") {
+			reader, err := statikFS.Open(path)
+			if err != nil {
+				return err
+			}
+
+			b, err := io.ReadAll(reader)
+			if err != nil {
+				return err
+			}
+
+			t, err := template.New(f.Name()).Parse(string(b))
+			if err != nil {
+				return err
+			}
+
+			engine.SetHTMLTemplate(t)
+		}
 		return nil
 	}
-	//	_ = fn
-	//
-	//	f, err := statikFS.Open("/html/ec2/index.html")
-	//	if err != nil {
-	//		fmt.Println("assets", err)
-	//	}
 
-	err := pkger.Walk("/assets", fn)
+	err = fs.Walk(statikFS, "/html", fn)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	//f, err := pkger.Open("/assets/html/ec2/index.html")
-	//f, err := statikFS.Open("/aws.yaml")
-	//if err != nil {
-	//	fmt.Println("configs", err)
-	//}
-
-	////b, err := io.ReadAll(f)
-	////if err != nil {
-	////	fmt.Println(err)
-	////	os.Exit(1)
-	////}
-	//
-	//fmt.Print(string(b))
-
-	//err = fs.Walk(statikFS, "/assets", fn)
-	//if err != nil {
-	//	panic(err)
-	//}
 	return
 }
-
-//func setTemplate(router *gin.Engine) {
-//	tmpl := template.New()
-//
-//	err := box.Walk("", fn)
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	router.SetHTMLTemplate(tmpl)
-//}
